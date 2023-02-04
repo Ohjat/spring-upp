@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="ru">
+<head>
+    <title>Детали</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="header">...</div>
+
+<h1>Все игра</h1>
+<a class="underline text-blue-600" href="/games/filter">Поиск гонки</a>
+<a class="underline text-blue-600" href="/games/add" sec:authorize="hasAnyAuthority('WORKER','ADMIN')">Добавить гонку</a>
+<div th:each="games : ${games}">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2" th:text="'Номер гонки: '+ ${games.number}"/>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+            <a class="underline text-blue-600"  th:href="'/games/edit/'+${games.id}" sec:authorize="hasAnyAuthority('WORKER','ADMIN')">Редактировать</a>
+            <a class="underline text-blue-600"  th:href="'/games/show/'+${games.id}">Посмореть</a>
+            <a class="underline text-blue-600"  th:href="'/games/del/'+${games.id}" sec:authorize="hasAnyAuthority('WORKER','ADMIN')">Удалить</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

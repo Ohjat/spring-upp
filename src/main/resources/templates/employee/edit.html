@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title th:value="${'Редактирование работника '+employee.salary}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="header">...</div>
+
+<div class="w-full max-w-xs">
+    <form th:action="${'/employee/edit/'+ employee.id}" method="post" th:object="${employee}"
+          class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">зарплата</label>
+            <div style="color: red" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></div>
+            <input th:field="*{salary}"
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                   type="number" name="salary" placeholder="Введите номер">
+        </div>
+
+         <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">дата поступления работника</label>
+            <div style="color: red" th:if="${#fields.hasErrors('date_emploeed')}" th:errors="*{date_emploeed}"></div>
+            <input class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                   th:field="*{date_emploeed}" type="date"  placeholder="дата ujyrb">
+        </div>
+
+
+      <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">email юзера</label>
+            <div style="color: red" th:if="${#fields.hasErrors('User')}" th:errors="*{user}"></div>
+            <select th:field="*{user}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="cars">
+                <option th:each="user : ${users}"
+                        th:if="${(employee.user != null && user.id == employee.user.id) || user.employee==null}"
+                        th:value="${user.id}"
+                        th:text="${user.username }">
+                </option>
+            </select>
+        </div>
+
+      <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">инфа о юзере</label>
+            <div style="color: red" th:if="${#fields.hasErrors('infa_employee')}" th:errors="*{infa_employee}"></div>
+            <select th:field="*{infa_employee}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="cars">
+                <option th:each="infa_employee : ${infa_employee}"
+                        th:if="${(employee.infa_employee != null && infa_employee.id == employee.infa_employee.id) || infa_employee.employee==null}"
+                        th:value="${infa_employee.id}"
+                        th:text="${infa_employee.awards }"
+
+                />
+
+            </select>
+        </div>
+
+
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">редактировать пользователя
+
+        </button>
+    </form>
+</div>
+</body>
+</html>

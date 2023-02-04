@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="ru">
+<head>
+    <title>Награды</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="header">...</div>
+
+<h1>Вся информация</h1>
+<a class="underline text-blue-600" href="/infa_employee/filter">Поиск инориации</a>
+<a class="underline text-blue-600" href="/infa_employee/add" sec:authorize="hasAnyAuthority('WORKER','ADMIN')">Добавить информацию </a>
+<div th:each="infa_employee : ${infa_employee}">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2" th:text="${infa_employee.awards}"/>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+            <a class="underline text-blue-600"  th:href="'/infa_employee/edit/'+${infa_employee.id}" sec:authorize="hasAnyAuthority('WORKER','ADMIN')">Редактировать</a>
+            <a class="underline text-blue-600"  th:href="'/infa_employee/show/'+${infa_employee.id}">Посмореть</a>
+            <a class="underline text-blue-600"  th:href="'/infa_employee/del/'+${infa_employee.id}" sec:authorize="hasAnyAuthority('WORKER','ADMIN')">Удалить</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

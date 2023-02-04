@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:value="${raser.id_games.number}"></title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="header">...</div>
+
+<div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2" th:text="'Дата регистрации: '+${raser.data_registr}"/>
+        <div class="font-bold text-xl mb-2" th:text="'Марака автомобиля: '+${raser.id_cars.name}"/>
+        <div class="font-bold text-xl mb-2" th:text="'Номер последней гонки: '+${raser.id_games.number}"/>
+        <div class="font-bold text-xl mb-2" th:text="'Смотрящий '+${raser.user.username}"/>
+        <div class="font-bold text-xl mb-2" th:text="'Смотрящий '+${raser.id_awards.name}"/>
+
+
+    </div>
+</div>
+</body>
+</html>

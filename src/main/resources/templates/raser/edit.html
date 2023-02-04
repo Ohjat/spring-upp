@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title th:value="${'Редактирование детали '+ raser.id_cars.name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="header">...</div>
+
+<div class="w-full max-w-xs">
+    <form th:action="${'/raser/edit/'+ raser.id}" method="post" th:object="${raser}"
+          class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+       <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">дата регистрации</label>
+            <div style="color: red" th:if="${#fields.hasErrors('data_registr')}" th:errors="*{data_registr}"></div>
+            <input class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                   th:field="*{data_registr}" type="date"  placeholder="дата регистрации">
+        </div>
+
+
+      <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">привязаная машина</label>
+            <div style="color: red" th:if="${#fields.hasErrors('id_cars')}" th:errors="*{id_cars}"></div>
+            <select th:field="*{id_cars}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="id_cars">
+                <option th:each="car : ${cars}"
+                        th:if="${(raser.id_cars != null && car.id == raser.id_cars.id) || car.raser==null}"
+                        th:value="${car.id}"
+                        th:text="${car.name }">
+                </option>
+            </select>
+        </div>
+
+      <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">последняя гонка</label>
+            <div style="color: red" th:if="${#fields.hasErrors('id_games')}" th:errors="*{id_games}"></div>
+            <select th:field="*{id_games}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="cars">
+                <option th:each="game : ${games}"
+                        th:if="${(raser.id_games != null && game.id == raser.id_games.id) || game.raser==null}"
+                        th:value="${game.id}"
+                        th:text="${game.number }"
+
+                />
+
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">привязаный сморящий</label>
+            <div style="color: red" th:if="${#fields.hasErrors('user')}" th:errors="*{user}"></div>
+            <select th:field="*{user}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="cars">
+                <option th:each="user : ${users}"
+                        th:if="${(raser.user != null && user.id == raser.user.id) || user.raser==null}"
+                        th:value="${user.id}"
+                        th:text="${user.username }"
+
+                />
+
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">последняя награда</label>
+            <div style="color: red" th:if="${#fields.hasErrors('id_awards')}" th:errors="*{id_awards}"></div>
+            <select th:field="*{id_awards}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="cars">
+                <option th:each="award : ${awards}"
+                        th:if="${(raser.id_awards != null && award.id == raser.id_awards.id) || award.raser==null}"
+                        th:value="${award.id}"
+                        th:text="${award.name }"
+
+                />
+
+            </select>
+        </div>
+
+
+
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">редактировать гонщика
+        </button>
+    </form>
+</div>
+</body>
+</html>

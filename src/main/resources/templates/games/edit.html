@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title th:value="${'Редактирование гонки '+games.number}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="header">...</div>
+
+<div class="w-full max-w-xs">
+    <form th:action="${'/games/edit/'+ games.id}" method="post" th:object="${games}"
+          class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+       <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">номер</label>
+            <div style="color: red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></div>
+            <input th:field="*{number}"
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                   type="number" name="number" placeholder="Введите номер">
+        </div>
+
+         <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">дата гонки</label>
+            <div style="color: red" th:if="${#fields.hasErrors('date_games')}" th:errors="*{date_games}"></div>
+            <input class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                   th:field="*{date_games}" type="date"  placeholder="дата ujyrb">
+        </div>
+
+
+      <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">выбор трека</label>
+            <div style="color: red" th:if="${#fields.hasErrors('track')}" th:errors="*{track}"></div>
+            <select th:field="*{track}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="cars">
+                <option th:each="track : ${track}"
+                        th:if="${(games.track != null && track.id == games.track.id) || track.games==null}"
+                        th:value="${track.id}"
+                        th:text="${track.name }">
+                </option>
+            </select>
+        </div>
+
+      <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">тип гонки</label>
+            <div style="color: red" th:if="${#fields.hasErrors('id_type_of_race')}" th:errors="*{id_type_of_race}"></div>
+            <select th:field="*{id_type_of_race}"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="cars">
+                <option th:each="id_type_of_race : ${type_of_race}"
+                        th:if="${(games.id_type_of_race != null && id_type_of_race.id == games.id_type_of_race.id) || id_type_of_race.games==null}"
+                        th:value="${id_type_of_race.id}"
+                        th:text="${id_type_of_race.name }"
+
+                />
+
+            </select>
+        </div>
+
+
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">редактировать награды
+        </button>
+    </form>
+</div>
+</body>
+</html>
